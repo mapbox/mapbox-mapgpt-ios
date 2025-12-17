@@ -1,6 +1,6 @@
-# mapbox-mapgpt-ios-internal
+# mapbox-mapgpt-ios
 
-### [Documentation](https://docs.mapbox.com/ios/navigation/api-reference/)
+### [Documentation](https://docs.mapbox.com/ios/navigation/guides/mapgpt/)
 
 ## License
 
