@@ -3,27 +3,27 @@
 
 import PackageDescription
 
-let commonVersion: Version = "24.17.0"
-let navNativeVersion: Version = "324.17.0"
-let mapboxCommonGptChecksum = "d3d33e58b286b941cfc7382377005e2f7db8f9ef90986baebcd657e31450bb81"
+let commonVersion: Version = "24.24.2"
+let navNativeVersion: Version = "324.24.2"
+let mapboxCommonGptChecksum = "9acc81e2a85b5ed180052e32e5a3e701a6f6c5e2c56b0f163b756d1d4a49aada"
 
-let version = "3.17.0"
-let mapGptVersion = "3.17.0-alpha.1"
+let version = "3.24.2"
+let mapGptVersion = "3.24.2"
 
 let binaries = [
-  "MapboxCoreMaps": "7ab481031da3fbc805d851463de614be6de7930aa49b917d3bd025e0ef48bc47",
-  "MapboxDirections": "e0540653b7990a3cf4763f05534b9ed12db237b35867d52a37ac0258a8ac44fc",
-  "MapboxMaps": "f53c893f77d8fcd24cc95e2e458f043096125c101a5b47b2bbdf18400c93d15f",
-  "MapboxNavigationCore": "c442343d6dcac3299fd4122a4c909702ea89ebae85fa5763800ac790d8cea506",
-  "MapboxNavigationUIKit": "4a83f8b88dc473558889c5c7831a3af64da0a733052cb9d7e1ed85b79b1f567f",
-  "_MapboxNavigationHelpers": "fa76b377bc1669c0e8cac1c81687cd4179803e5f0cd29d3fc396513465db4059",
+  "MapboxCoreMaps": "da5bf626f8d02213441b8074ca3fedce56f16ad56994fb5ad42ec5814ebdb900",
+  "MapboxDirections": "07719c07dd17a8f137c92146d875183d0a52b9ed365595a8a6c11f663746e6fb",
+  "MapboxMaps": "4a6b39bf6a97df430039e2b635798df9f665cb676d5a9671a3b495fc484deeeb",
+  "MapboxNavigationCore": "ed1cc03b88741389ede736c8c9fb88959abdaa73db78acfaf3725e264410ab5e",
+  "MapboxNavigationUIKit": "f8509abceadee1f421a20911c16e9c5c089f8587f64e60171a2068fb593d5fed",
+  "_MapboxNavigationHelpers": "1f265eff27f0e847db508601eedf3193300d57aa4606152ad8ebb9d9a4fea7d0",
   "_MapboxNavigationLocalization":
-    "4b87061d4dac9ca78698f83c6d59219e8e71b31499eacb79d688d600db74d453",
+    "36faa193e83d5a86c8b1add1f972a7ecdf0ec9c20adffe6fe50e6e818f8c18bf",
 ]
 
 let libraries = [
-  "MapboxMapGpt": "39f7dbcfcccbe1f27c9f8b3fbd2d113d808ff561c6ebee541f6438fd4831bacf",
-  "MapboxMapGptUI": "9fa5c10e97cb691a4c989497a2bc27cde8e57830f3bebb0d186be30b63155ff7",
+  "MapboxMapGpt": "e1fb84bf7164a0c0151b971167f955b999b006776a07f749e7723602ccd2276a",
+  "MapboxMapGptUI": "6fdba8babe51423ee82ff020e93866924ff18269f1cede2a44b4f712d228887e",
 ]
 
 enum FrameworkType {
@@ -82,10 +82,14 @@ func binaryTargets() -> [Target] {
 func libraryTargets() -> [Target] {
   libraries.map { binaryName, checksum in
     binaryTarget(
-      binaryName: binaryName, version: mapGptVersion, checksum: checksum,
-      packageName: "mapbox-mapgpt-ios")
+      binaryName: binaryName,
+      version: mapGptVersion,
+      checksum: checksum,
+      packageName: "mapbox-mapgpt-ios"
+    )
   }
 }
+
 func wrapperTargets() -> [Target] {
   [
     .target(
