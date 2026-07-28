@@ -3,27 +3,27 @@
 
 import PackageDescription
 
-let commonVersion: Version = "24.28.0-alpha.1"
-let navNativeVersion: Version = "324.28.0-alpha.1"
-let mapboxCommonGptChecksum = "83de98f8fa09b14c13a7e173dc3e872162d7cabb7cb98aabbc0889306c4d2508"
+let commonVersion: Version = "24.28.0-alpha.3"
+let navNativeVersion: Version = "324.28.0-alpha.3"
+let mapboxCommonGptChecksum = "9249f4823da22ebce9134dfe01752bedf9492184ab5ed3973a615dd09e588352"
 
-let version = "3.28.0"
-let mapGptVersion = "3.28.0-alpha.1"
+let version = "3.28.0-alpha.3"
+let mapGptVersion = "3.28.0-alpha.3"
 
 let binaries = [
-  "MapboxCoreMaps": "8fd54eee4277f1327015cc0bcaed8a878bf44d1804364cd5d93dfab9e2d1a5af",
-  "MapboxDirections": "8fd54eee4277f1327015cc0bcaed8a878bf44d1804364cd5d93dfab9e2d1a5af",
-  "MapboxMaps": "8fd54eee4277f1327015cc0bcaed8a878bf44d1804364cd5d93dfab9e2d1a5af",
-  "MapboxNavigationCore": "8fd54eee4277f1327015cc0bcaed8a878bf44d1804364cd5d93dfab9e2d1a5af",
-  "MapboxNavigationUIKit": "8fd54eee4277f1327015cc0bcaed8a878bf44d1804364cd5d93dfab9e2d1a5af",
-  "_MapboxNavigationHelpers": "8fd54eee4277f1327015cc0bcaed8a878bf44d1804364cd5d93dfab9e2d1a5af",
+  "MapboxCoreMaps": "4138a8c9160a2d1a9a42ff60453833f1603605c7aefb4e818990eddc2e324da6",
+  "MapboxDirections": "76caf840f55007b547fd73fbc41f0f8c8974a26db366cc996e80f2ac89e0f02d",
+  "MapboxMaps": "c80f68d093104cf621bc2c75ff47afcd250c819c20e47d928476b7794330ff4c",
+  "MapboxNavigationCore": "6f2ea6b81917c1c5708dcc03b2e65a085e6ed750d7f1659077ece9a38c17052f",
+  "MapboxNavigationUIKit": "48b00fdb6650247844d085a7612175e635dbc573c0a0be6775d0b47a48a61e9d",
+  "_MapboxNavigationHelpers": "3eaf62b3124eaade5ee29046157c5a863edc5203e6a639866f8a76982f62ab24",
   "_MapboxNavigationLocalization":
-    "8fd54eee4277f1327015cc0bcaed8a878bf44d1804364cd5d93dfab9e2d1a5af",
+    "33f814ebd96ef2e4aea26201a6437c96c4a47466e53a0600a1fd1c49cfe83528",
 ]
 
 let libraries = [
-  "MapboxMapGpt": "a61d29628e43ffc1d16d59aecb01d53a531265a2b24ef22741ffb6831cb2d27e",
-  "MapboxMapGptUI": "8503639d55e7d62b31b6da67bf11e63ab9e31f237647a1ad7639f6b09ec9e6fc",
+  "MapboxMapGpt": "d5f87b2718d0df88210d34b460f61008220c408455450eb9ca3e24dcdf001622",
+  "MapboxMapGptUI": "5b32f55b3789662cd9c14503e0fda38912fe8e92d7b73f475a4195ccdb0f23df",
 ]
 
 enum FrameworkType {
