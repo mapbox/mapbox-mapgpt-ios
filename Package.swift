@@ -3,27 +3,26 @@
 
 import PackageDescription
 
-let commonVersion: Version = "24.28.0-alpha.3"
-let navNativeVersion: Version = "324.28.0-alpha.3"
-let mapboxCommonGptChecksum = "9249f4823da22ebce9134dfe01752bedf9492184ab5ed3973a615dd09e588352"
+let commonVersion: Version = "24.35.0-rc.1"
+let navNativeVersion: Version = "324.35.0-rc.1"
 
-let version = "3.28.0-alpha.3"
-let mapGptVersion = "3.28.0-alpha.3"
+let version = "3.35.0-rc.1"
+let mapGptVersion = "3.35.0-rc.1"
 
 let binaries = [
-  "MapboxCoreMaps": "4138a8c9160a2d1a9a42ff60453833f1603605c7aefb4e818990eddc2e324da6",
-  "MapboxDirections": "76caf840f55007b547fd73fbc41f0f8c8974a26db366cc996e80f2ac89e0f02d",
-  "MapboxMaps": "c80f68d093104cf621bc2c75ff47afcd250c819c20e47d928476b7794330ff4c",
-  "MapboxNavigationCore": "6f2ea6b81917c1c5708dcc03b2e65a085e6ed750d7f1659077ece9a38c17052f",
-  "MapboxNavigationUIKit": "48b00fdb6650247844d085a7612175e635dbc573c0a0be6775d0b47a48a61e9d",
-  "_MapboxNavigationHelpers": "3eaf62b3124eaade5ee29046157c5a863edc5203e6a639866f8a76982f62ab24",
+  "MapboxCoreMaps": "e08061c60f9f3dee108bfb676298adf0d59d9b85ea4319a8e043147d529b98ce",
+  "MapboxDirections": "1f00804cbcf7b6b7d39f018508a572d587885212a3c102ebccc5f280c5598550",
+  "MapboxMaps": "9964a817e0ccabec5401c01d009f9598c07fbe4e00e3e5cf0dfebfb12253b8df",
+  "MapboxNavigationCore": "3e85687ea6dc19a5396a27a9cd2abb7b030c6191ac761be5eaa332f680a74751",
+  "MapboxNavigationUIKit": "e0d5d1be6e5369e86b444a3d72ec22e470fa4bb8eaa889e9cb1b1abbd9aaf2ec",
+  "_MapboxNavigationHelpers": "4c6c3234e82e486cbb62dc24551e108c214fd465c508bbe4d6eef296e3614326",
   "_MapboxNavigationLocalization":
-    "33f814ebd96ef2e4aea26201a6437c96c4a47466e53a0600a1fd1c49cfe83528",
+    "06d8a842196ac6fc1925dd19b3bc694f05e46b7653e92fde918a507853c37a35",
 ]
 
 let libraries = [
-  "MapboxMapGpt": "d5f87b2718d0df88210d34b460f61008220c408455450eb9ca3e24dcdf001622",
-  "MapboxMapGptUI": "5b32f55b3789662cd9c14503e0fda38912fe8e92d7b73f475a4195ccdb0f23df",
+  "MapboxMapGpt": "a25e0b392803d2e437c03efbbe9b0906d7c642c5e77850aad4574d7de9bfc2cf",
+  "MapboxMapGptUI": "23f3f5f194df3b4e89f030a178044f2055d177a02c34776410471abb553f49ed",
 ]
 
 enum FrameworkType {
@@ -33,6 +32,40 @@ enum FrameworkType {
 }
 
 let frameworkType: FrameworkType = .release
+
+let commonGptTarget = frameworkType == .local ? "MapboxCommonGpt" : "MapboxCommonGptWrapper"
+
+func commonGptTargets() -> [Target] {
+  switch frameworkType {
+  case .release, .staging:
+    return [
+      .target(
+        name: "MapboxCommonGptWrapper",
+        dependencies: [.product(name: "MapboxMapGptNative", package: "mapbox-mapgpt-native-ios")],
+        path: "Sources/.empty/MapboxCommonGptWrapper"
+      )
+    ]
+  case .local:
+    return [
+      .binaryTarget(name: "MapboxCommonGpt", path: "XCFrameworks/MapboxCommonGpt.xcframework")
+    ]
+  }
+}
+
+func packageDependencies() -> [Package.Dependency] {
+  var packages: [Package.Dependency] = [
+    .package(url: "https://github.com/mapbox/mapbox-common-ios.git", exact: commonVersion),
+    .package(
+      url: "https://github.com/mapbox/mapbox-navigation-native-ios.git", exact: navNativeVersion),
+  ]
+  // Only the wrapper-backed modes need it; .local reads MapboxCommonGpt off disk instead, which
+  // needs no checksum either -- only the remote url: variant the wrapper replaces did.
+  if frameworkType != .local {
+    packages.append(
+      .package(url: "https://github.com/mapbox/mapbox-mapgpt-native-ios.git", exact: commonVersion))
+  }
+  return packages
+}
 
 let package = Package(
   name: "MapboxMapGpt",
@@ -48,7 +81,7 @@ let package = Package(
     ),
     .library(
       name: "MapboxCommonGpt",
-      targets: ["MapboxCommonGpt"]
+      targets: [commonGptTarget]
     ),
     .library(
       name: "MapboxNavigationCore",
@@ -63,12 +96,8 @@ let package = Package(
       targets: ["MapboxDirectionsWrapper"]
     ),
   ],
-  dependencies: [
-    .package(url: "https://github.com/mapbox/mapbox-common-ios.git", exact: commonVersion),
-    .package(
-      url: "https://github.com/mapbox/mapbox-navigation-native-ios.git", exact: navNativeVersion),
-  ],
-  targets: binaryTargets() + libraryTargets() + wrapperTargets()
+  dependencies: packageDependencies(),
+  targets: binaryTargets() + libraryTargets() + wrapperTargets() + commonGptTargets()
 )
 
 // mapbox-navigation-ios
@@ -105,11 +134,6 @@ func wrapperTargets() -> [Target] {
         "MapboxMapGptUI"
       ],
       path: "Sources/.empty/MapboxMapGptUIWrapper"
-    ),
-    commonBinaryTarget(
-      binaryName: "MapboxCommonGpt",
-      checksum: mapboxCommonGptChecksum,
-      packageName: "mapbox-common-mapgpt"
     ),
     // ---
     .target(
@@ -153,26 +177,6 @@ func binaryTarget(
       name: binaryName,
       url: "https://\(host)/downloads/v2/\(packageName)"
         + "/releases/ios/packages/\(version)/\(binaryName).xcframework.zip",
-      checksum: checksum
-    )
-  case .local:
-    return Target.binaryTarget(
-      name: binaryName,
-      path: "XCFrameworks/\(binaryName).xcframework"
-    )
-  }
-}
-
-func commonBinaryTarget(
-  binaryName: String, checksum: String, packageName: String
-) -> Target {
-  switch frameworkType {
-  case .release, .staging:
-    let host = frameworkType == .release ? "api.mapbox.com" : "cloudfront-staging.tilestream.net"
-    return Target.binaryTarget(
-      name: binaryName,
-      url: "https://\(host)/downloads/v2/\(packageName)"
-        + "/releases/ios/packages/\(commonVersion.description)/\(binaryName).zip",
       checksum: checksum
     )
   case .local:
