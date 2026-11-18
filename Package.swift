@@ -3,26 +3,26 @@
 
 import PackageDescription
 
-let commonVersion: Version = "24.36.0-rc.1"
-let navNativeVersion: Version = "324.36.0-rc.1"
+let commonVersion: Version = "24.35.1"
+let navNativeVersion: Version = "324.35.1"
 
-let version = "3.36.0-rc.1"
-let mapGptVersion = "3.36.0-rc.1"
+let version = "3.35.1"
+let mapGptVersion = "3.35.1"
 
 let binaries = [
-  "MapboxCoreMaps": "69c322c29e90f97eb0acd7b09231dff1c4838924de28d537ee3881fffff44573",
-  "MapboxDirections": "baf8aa5911768fc4e2b91b9b991f215a48a54d0c794cfb57dd5e70498922191d",
-  "MapboxMaps": "cc4608cdd8809b266704b751c4ee98101a523db1ff6e5683da9e95893e30e4ea",
-  "MapboxNavigationCore": "8e2fdf5b2ec3947bacb6ed567ac313ba214ef1b574a9e808a3a9f7cfb7f44406",
-  "MapboxNavigationUIKit": "77b88433962e13fa14a106167d2cfd9be8b58b221204ea2725b43bad4557d054",
-  "_MapboxNavigationHelpers": "578cec3c2cfa1d3f622056c7de5b8cbe76bdb612ee1940f01fbb7b690fdb3c06",
+  "MapboxCoreMaps": "f584c16a6e8c38ce2621af0abe2c0607becf6c752db972a91d52ca6ed6d0152f",
+  "MapboxDirections": "338d52f8f406ea2a8baa9ee7df4c14586dd81c794b1a6b7930a189eb2a890d48",
+  "MapboxMaps": "ce8c4cf6a854858a37696f1cc0e9992815680b50ea576f7b86133f021db6065d",
+  "MapboxNavigationCore": "3772448466f7e655cf95d95faa107781509457f16bcfc563f3ff2bece9611674",
+  "MapboxNavigationUIKit": "e266eecbec134578a4cb72487ab8dbea98ab80118ba53da72919e52dca4711a8",
+  "_MapboxNavigationHelpers": "7ebadba16e89cc00c755b3fc7ac8cc6629128c50adafe7cb44238b6daf59fdf3",
   "_MapboxNavigationLocalization":
-    "0a30baa95f5a84e64f700fe8c9c9eb7e2f6dc97f1f836c2f5a656d7950170c23",
+    "6676e5834a74848cb5b93420f5c543d29efb1ad0b26525d91d5f9240eb381067",
 ]
 
 let libraries = [
-  "MapboxMapGpt": "06175a6aa984dfd9009a65123f3550776e2bf38727c2af5e9cd10fd255f90774",
-  "MapboxMapGptUI": "71ae0291bc3e5b641546f9d7dc472cd58aed24d9cc0bcd2dd171e38f01888968",
+  "MapboxMapGpt": "366a0a553fe77ba24ba41a566370b57dacbe06e4091419b168e603c539e4fe2d",
+  "MapboxMapGptUI": "0a915459958d6ed95b42f060a4073c78319f0050b93a4e32bf5223db6cfac215",
 ]
 
 enum FrameworkType {
